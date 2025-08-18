@@ -42,12 +42,12 @@ CREATE TABLE `credentials` (
 
 LOCK TABLES `credentials` WRITE;
 /*!40000 ALTER TABLE `credentials` DISABLE KEYS */;
-INSERT INTO `credentials` VALUES  (1,'Alpha','10',80000,'10/07','NB12746325B','','','245a58a5dc42397caf57bc06c2c0afd2'),
-                                  (2,'Bravo','20',75000,'20/04','DA83762163V','','','9ec75097ce44559e94e404d6a2d395ab'),
-                                  (3,'Charlie','30',40000,'01/08','JC834645277B','','','48bc893fcbc0a33ed3ad2cf2d5d57cfe'),
-                                  (4,'Delta','40',90000,'11/01','EF2747556298A','','','ec8b63c05f999a15a8c8567002a560a8'),
-                                  (5,'Ethan','50',55000,'11/03','OP63624164B','','','2042101ac1f6e7741bfe43f3672e6d7c'),
-                                  (6,'Faraday','60',50000,'23/02','JY2734827C','','','7efd721c8bfff2937c66235f2d0dbac1'),
+INSERT INTO `credentials` VALUES  (1,'Alpha','10',80000,'10/07','NB12746325B','','','6132295fcf5570fb8b0a944ef322a598'),
+                                  (2,'Bravo','20',75000,'20/04','DA83762163V','','','01a2da07bf36766155f48fc670d53fe8'),
+                                  (3,'Charlie','30',40000,'01/08','JC834645277B','','','ea2bfa79cd221f1e88a9bf39ea155cd8'),
+                                  (4,'Delta','40',90000,'11/01','EF2747556298A','','','db1f4ab5845def61a83d5df13e0c2397'),
+                                  (5,'Ethan','50',55000,'11/03','OP63624164B','','','e05699b45eae134804f4419d3fbb3139'),
+                                  (6,'Faraday','60',50000,'23/02','JY2734827C','','','8a2616385414d08a46c455359bf20f8e'),
                                   (7,'Admin','99',null,'','','','','c418f34f261efe1473465ade95bfc22c');
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
