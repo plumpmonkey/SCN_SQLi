@@ -1,45 +1,225 @@
+/* UWE Cyber HR Portal - SQL injection lab
+   Plain staff-intranet styling. No external fonts or frameworks, so the
+   container works offline. */
+
+:root {
+  --red: #ec2028;          /* from the UWE Cyber logo */
+  --red-dark: #c3141b;
+  --ink: #1d1e22;
+  --muted: #6a665e;
+  --line: #e2dfd9;
+  --line-soft: #eeebe6;
+  --bg: #f6f5f2;
+  --panel: #ffffff;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); }
+
 body {
-	margin-top: 100px;
-	background: #a39eb1;
-	font-family: "Sans-serif", Verdana, serif;
-	font-size: 20px;
-}
-.form-control{
-	font-size: 21px;
-}
-button{
-	border: 0px;
-	border-radius: 5px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-.navbar .navbar-nav .nav-link {
-    color: #2C3539;
-    padding-left: 20px;
-    font-size: 18px;
-}
-/* change the color of active or hovered links */
-.navbar .nav-item.active .nav-link{
-	color: white;
-	font-size: 24px;
-	font-weight: bold;
-}
-.navbar .nav-item:hover .nav-link {
-    color: white;
-	text-decoration: none;
-}
-.navbar button{
-	background: #2C3539;
-	color: white;
-	border: 1px solid black;
-}
-.navbar button:hover{
-	background: white;
-	color: black;
-	cursor: pointer;
+/* ---- header ------------------------------------------------------------ */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 10px 32px;
+  background: var(--panel);
+  border-bottom: 3px solid var(--red);
 }
 
-.btn-success {
-	color: #fff;
-	background-color: #17a2b8;
-    border-color: #17a2b8;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+.brand img { height: 40px; width: auto; display: block; }
+.brand-name {
+  padding-left: 14px;
+  border-left: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 28px;
+}
+
+.nav { display: flex; gap: 4px; margin-right: auto; }
+.nav a {
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 15px;
+  text-decoration: none;
+}
+.nav a:hover { color: var(--ink); background: var(--bg); }
+.nav a.active { color: var(--ink); font-weight: 600; }
+
+.logout {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.logout:hover { border-color: var(--ink); }
+
+/* ---- page -------------------------------------------------------------- */
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 32px 56px;
+}
+.page-mid { max-width: 640px; }
+.page-narrow { max-width: 440px; }
+
+h1 { margin: 0 0 4px; font-size: 28px; font-weight: 650; line-height: 1.2; }
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.muted { margin: 0; color: var(--muted); }
+
+.panel {
+  margin-top: 20px;
+  padding: 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.page-narrow .panel { margin-top: 0; }
+.panel.flush { padding: 0; }
+
+/* ---- forms ------------------------------------------------------------- */
+label {
+  display: block;
+  margin: 18px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfcac2;
+  border-radius: 4px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+}
+input:focus {
+  outline: 3px solid rgba(236, 32, 40, 0.18);
+  border-color: var(--red);
+}
+form > label:first-child { margin-top: 0; }
+.page-narrow form > label:first-child { margin-top: 18px; }
+.hint { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+.btn {
+  width: 100%;
+  margin-top: 26px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--red);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover { background: var(--red-dark); }
+
+/* ---- tables ------------------------------------------------------------ */
+.kv { width: 100%; border-collapse: collapse; }
+.kv th, .kv td { padding: 12px 0; border-bottom: 1px solid var(--line-soft); text-align: left; }
+.kv tr:last-child th, .kv tr:last-child td { border-bottom: 0; }
+.kv tr:first-child th, .kv tr:first-child td { padding-top: 0; }
+.kv th { width: 42%; color: var(--muted); font-weight: 500; }
+.kv td { font-weight: 500; }
+
+.table-wrap { overflow-x: auto; }
+.data { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.data thead th {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line);
+  background: #faf9f7;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.data tbody th, .data tbody td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  white-space: nowrap;
+}
+.data tbody th { font-weight: 600; }
+.data tbody tr:last-child th, .data tbody tr:last-child td { border-bottom: 0; }
+.data tbody tr:hover { background: #fbfaf8; }
+
+.num { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--mono); font-size: 13px; color: #4a4740; }
+
+/* ---- messages ---------------------------------------------------------- */
+.alert {
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--red);
+  border-radius: 4px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.alert code {
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13.5px;
+}
+.link-back {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--red);
+  font-weight: 600;
+  text-decoration: none;
+}
+.link-back:hover { text-decoration: underline; }
+
+/* ---- footer ------------------------------------------------------------ */
+.foot {
+  padding: 18px 32px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .topbar { flex-wrap: wrap; gap: 12px; padding: 10px 16px; }
+  .page { padding: 28px 16px 40px; }
+  .panel { padding: 20px; }
 }

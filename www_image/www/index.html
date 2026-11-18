@@ -1,44 +1,33 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link href="css/style_home.css" type="text/css" rel="stylesheet">
-
-  <!-- Browser Tab title -->
-  <title>SQLi Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style_home.css">
+  <link rel="icon" type="image/png" href="cyberlogo.png">
+  <title>HR Portal | SQLi Lab</title>
 </head>
 
 <body>
-  <nav class="navbar fixed-top navbar-light" style="background-color: #1f808c;">
-    <a class="navbar-brand" href="#" ><img src="UWE_Logos.png" style="height: 47px; width: 194px;" alt="UWE"></a>
-  </nav>
-  <div class="container  col-lg-4 col-lg-offset-4" style="padding-top: 50px; text-align: center;">
-    <h2><b>HR Database Login</b></h2><hr><br>
-    <div class="container">
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="cyberlogo.png" alt="UWE Cyber"><span class="brand-name">HR Portal</span></a>
+  </header>
+
+  <main class="page page-narrow">
+    <section class="panel">
+      <p class="eyebrow">Staff access</p>
+      <h1>Sign in</h1>
+      <p class="muted">Use your employee name and portal password.</p>
       <form action="unsafe_login.php" method="get">
-        <div class="input-group mb-3 text-center">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="uname">USERNAME</span>
-          </div>
-          <input type="text" class="form-control" placeholder="Username" name="username" aria-label="Username" aria-describedby="uname">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="pwd">PASSWORD </span>
-          </div>
-          <input type="password" class="form-control" placeholder="Password" name="Password" aria-label="Username" aria-describedby="pwd">
-        </div>
-        <br>
-        <button type="submit" class="button btn-info btn-lg btn-block">Login</button>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="off" autofocus>
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="Password">
+        <button type="submit" class="btn">Log in</button>
       </form>
-    </div>
-    <br>
-    <div class="text-center">
-    </div>
-  </div>
+    </section>
+  </main>
+
+  <footer class="foot">UWE Cyber HR Portal: a deliberately vulnerable training system for the SCN SQL injection lab.</footer>
 </body>
 </html>

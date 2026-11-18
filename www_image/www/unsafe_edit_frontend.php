@@ -3,32 +3,25 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link href="css/style_home.css" type="text/css" rel="stylesheet">
+  <!-- Portal styles -->
+  <link rel="stylesheet" href="css/style_home.css">
+  <link rel="icon" type="image/png" href="cyberlogo.png">
 
   <!-- Browser Tab title -->
-  <title>SQLi Lab</title>
+  <title>HR Portal | SQLi Lab</title>
 </head>
 
 <body>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #1f808c;">
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#" ><img src="UWE_Logos.png" style="height: 60px; width: 194px;" alt="UWE"></a>
-      <ul class='navbar-nav mr-auto mt-2 mt-lg-0' style='padding-left: 30px;'>
-        <li class='nav-item '>
-          <a class='nav-link' href='unsafe_login.php'>Home</a>
-        </li>
-        <li class='nav-item active'>
-          <a class='nav-link' href='unsafe_edit_frontend.php'>Edit Profile</a>
-        </li>
-    
-      </ul>
-      <button onclick='logout()' type='button' id='logoffBtn' class='nav-link my-2 my-lg-0'>Logout</button>
-    </div>
-  </nav>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="cyberlogo.png" alt="UWE Cyber"><span class="brand-name">HR Portal</span></a>
+    <nav class="nav">
+      <a href="unsafe_login.php">Home</a>
+      <a class="active" href="unsafe_edit_frontend.php">Edit Profile</a>
+    </nav>
+    <button onclick="logout()" type="button" id="logoffBtn" class="logout">Log out</button>
+  </header>
 
   <?php
   session_start();
@@ -51,7 +44,7 @@
   // create a connection
   $conn = getDB();
   // Sql query to authenticate the user
-  $sql = "SELECT id, name, eid, salary, birth, PhoneNumber, Email 
+  $sql = "SELECT id, name, eid, salary, birth, PhoneNumber, Email
   FROM credentials
   WHERE name= '$uname'";
   if (!$result = $conn->query($sql)) {
@@ -73,40 +66,32 @@
   $email = $json_a[0]['Email'];
   ?>
 
-  <div class="container  col-lg-4 col-lg-offset-4 text-center" style="padding-top: 50px; text-align: center;">
+  <main class="page page-mid">
     <?php
     session_start();
     $name=$_SESSION["name"];
-    echo "<h2><b>$name's Profile Edit</b></h1><hr><br>";
+    echo "<div class='page-head'><p class='eyebrow'>$name</p><h1>Edit Profile</h1>";
+    echo "<p class='muted'>Update your contact details or change your password.</p></div>";
     ?>
-    <form action="unsafe_edit_backend.php" method="get">
-      <div class="form-group row">
-        <label for="Email" class="col-sm-4 col-form-label">Email</label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" <?php echo "value=$email";?>>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="PhoneNumber" class="col-sm-4 col-form-label">Phone Number</label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" placeholder="PhoneNumber" <?php echo "value=$phoneNumber";?>>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="Password" class="col-sm-4 col-form-label">Password</label>
-        <div class="col-sm-8">
-          <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
-        </div>
-      </div>
-      <br>
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <button type="submit" class="button btn-info btn-lg btn-block">Save</button>
-        </div>
-      </div>
-    </form>
-    <br>
-  </div>
+    <section class="panel">
+      <form action="unsafe_edit_backend.php" method="get">
+        <label for="Email">Email</label>
+        <input type="text" id="Email" name="Email" autocomplete="off" <?php echo "value=$email";?>>
+
+        <label for="PhoneNumber">Phone Number</label>
+        <input type="text" id="PhoneNumber" name="PhoneNumber" autocomplete="off" <?php echo "value=$phoneNumber";?>>
+
+        <label for="Password">New Password</label>
+        <input type="password" id="Password" name="Password" autocomplete="new-password">
+        <p class="hint">Leave blank to keep your current password.</p>
+
+        <button type="submit" class="btn">Save</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="foot">UWE Cyber HR Portal: a deliberately vulnerable training system for the SCN SQL injection lab.</footer>
+
   <script type="text/javascript">
   function logout(){
     location.href = "logoff.php";

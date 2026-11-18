@@ -5,17 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link href="css/style_home.css" type="text/css" rel="stylesheet">
+  <!-- Portal styles -->
+  <link rel="stylesheet" href="css/style_home.css">
+  <link rel="icon" type="image/png" href="cyberlogo.png">
 
   <!-- Browser Tab title -->
-  <title>SQLi Lab</title>
+  <title>HR Portal | SQLi Lab</title>
 </head>
 
 <body>
-<nav class="navbar fixed-top navbar-light" style="background-color: #1f808c;">
-    <a class="navbar-brand" href="#" ><img src="UWE_Logos.png" style="height: 60px; width: 194px;" alt="UWE"></a>
+<header class="topbar">
+    <a class="brand" href="index.html"><img src="cyberlogo.png" alt="UWE Cyber"><span class="brand-name">HR Portal</span></a>
   
       <?php
       session_start();
@@ -39,9 +39,9 @@
         // Create a DB connection
         $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
         if ($conn->connect_error) {
-          echo "</div>";
-          echo "</nav>";
-          echo "<div class='container text-center'>";
+          echo "</header>";
+          echo "<main class='page page-mid'>";
+          echo "<div class='alert'>";
           die("Connection failed: " . $conn->connect_error . "\n");
           echo "</div>";
         }
@@ -58,9 +58,9 @@
 
       // run the query
       if (!$result = $conn->query($sql)) {
-        echo "</div>";
-        echo "</nav>";
-        echo "<div class='container text-center'>";
+        echo "</header>";
+        echo "<main class='page page-mid'>";
+        echo "<div class='alert'>";
         die('There was an error running the query [' . $conn->error . ']\n');
         echo "</div>";
       }
@@ -88,16 +88,14 @@
         drawLayout($id,$name,$eid,$salary,$birth,$ni,$pwd,$email,$phoneNumber);
       }else{
         // User authentication failed
+        echo "</header>";
+        echo "<main class='page page-narrow'>";
+        echo "<div class='alert'>";
+        echo "<strong>Login failed:</strong> no account matches that username and password.<br>";
+        echo "Username sent: <code>" . htmlspecialchars($input_uname) . "</code><br>";
+        echo "Password hash (MD5): <code>" . htmlspecialchars($hashed_pwd) . "</code>";
         echo "</div>";
-        echo "</nav>";
-        echo "<div class='container text-center'>";
-        echo "<div class='alert alert-danger'>";
-        echo "The account information your provide does not exist.";
-        echo "ID = $input_uname";
-        echo "pw = $hashed_pwd";
-        echo "<br>";
-        echo "</div>";
-        echo "<a href='index.html'>Go back</a>";
+        echo "<a class='link-back' href='index.html'>&larr; Back to sign in</a>";
         echo "</div>";
         return;
       }
@@ -117,34 +115,24 @@
 
         if ($name !="Admin") {
           // If the user is a normal user.
-          echo "<ul class='navbar-nav mr-auto mt-2 mt-lg-0' style='padding-left: 30px;'>";
-          echo "<li class='nav-item '>";
-          echo "<a class='nav-link' href='unsafe_login.php'>Home</a>";
-          echo "</li>";
-          echo "<li class='nav-item '>";
-          echo "<a class='nav-link' href='unsafe_edit_frontend.php'>Edit Profile</a>";
-          echo "</li>";
-          echo "</ul>";
-          echo "<button onclick='logout()' type='button' id='logoffBtn' class='nav-link my-2 my-lg-0'>Logout</button>";
-          echo "</div>";
+          echo "<nav class='nav'>";
+          echo "<a class='active' href='unsafe_login.php'>Home</a>";
+          echo "<a href='unsafe_edit_frontend.php'>Edit Profile</a>";
           echo "</nav>";
-          echo "<div class='container col-lg-4 col-lg-offset-4 text-center'>";
-          echo "<br><h1><b> $name Profile </b></h1>";
-          echo "<hr><br>";
-          echo "<table class='table table-striped table-bordered'>";
-          echo "<thead class='thead-dark'>";
-          echo "<tr>";
-          echo "<th scope='col'>Key</th>";
-          echo "<th scope='col'>Value</th>";
-          echo "</tr>";
-          echo "</thead>";
+          echo "<button onclick='logout()' type='button' id='logoffBtn' class='logout'>Log out</button>";
+          echo "</header>";
+          echo "<main class='page page-mid'>";
+          echo "<div class='page-head'><p class='eyebrow'>Employee record</p>";
+          echo "<h1>$name Profile</h1></div>";
+          echo "<section class='panel'>";
+          echo "<table class='kv'>";
           echo "<tr>";
           echo "<th scope='row'>Employee ID</th>";
           echo "<td>$eid</td>";
           echo "</tr>";
           echo "<tr>";
           echo "<th scope='row'>Salary</th>";
-          echo "<td>$salary</td>";
+          echo "<td class='num'>$salary</td>";
           echo "</tr>";
           echo "<tr>";
           echo "<th scope='row'>Birth</th>";
@@ -163,6 +151,7 @@
           echo "<td>$phoneNumber</td>";
           echo "</tr>";
           echo "</table>";
+          echo "</section>";
         }
         else {
           // if user is admin.
@@ -180,30 +169,26 @@
           $json_aa = json_decode($json_str,true);
           $conn->close();
           $max = sizeof($json_aa);
-          echo "<ul class='navbar-nav mr-auto mt-2 mt-lg-0' style='padding-left: 30px;'>";
-          echo "<li class='nav-item-active '>";
-          echo "<a class='nav-link' href='unsafe_login.php'>Home</a>";
-          echo "</li>";
-          echo "<li class='nav-item'>";
-          echo "<a class='nav-link' href='unsafe_edit_frontend.php'>Edit Profile</a>";
-          echo "</li>";
-          echo "</ul>";
-          echo "<button onclick='logout()' type='button' id='logoffBtn' class='nav-link my-2 my-lg-0'>Logout</button>";
-          echo "</div>";
+          echo "<nav class='nav'>";
+          echo "<a class='active' href='unsafe_login.php'>Home</a>";
+          echo "<a href='unsafe_edit_frontend.php'>Edit Profile</a>";
           echo "</nav>";
-          echo "<div class='container'>";
-          echo "<br><h1 class='text-center'><b> User Details </b></h1>";
-          echo "<hr><br>";
-          echo "<table class='table table-striped table-bordered'>";
-          echo "<thead class='thead-dark'>";
+          echo "<button onclick='logout()' type='button' id='logoffBtn' class='logout'>Log out</button>";
+          echo "</header>";
+          echo "<main class='page'>";
+          echo "<div class='page-head'><p class='eyebrow'>Administrator</p>";
+          echo "<h1>User Details</h1><p class='muted'>$max employee records</p></div>";
+          echo "<section class='panel flush'><div class='table-wrap'>";
+          echo "<table class='data'>";
+          echo "<thead>";
           echo "<tr>";
           echo "<th scope='col'>Username</th>";
-          echo "<th scope='col'>EId</th>";
+          echo "<th scope='col'>EID</th>";
           echo "<th scope='col'>Salary</th>";
-          echo "<th scope='col'>Birthday</th>";
-          echo "<th scope='col'>NationalInsuranceNo.</th>";
+          echo "<th scope='col'>Birth</th>";
+          echo "<th scope='col'>NI No.</th>";
           echo "<th scope='col'>Email</th>";
-          echo "<th scope='col'>Password</th>";
+          echo "<th scope='col'>Password (MD5)</th>";
           echo "<th scope='col'>Phone Number</th>";
           echo "</tr>";
           echo "</thead>";
@@ -222,21 +207,23 @@
             echo "<tr>";
             echo "<th scope='row'> $i_name</th>";
             echo "<td>$i_eid</td>";
-            echo "<td>$i_salary</td>";
+            echo "<td class='num'>$i_salary</td>";
             echo "<td>$i_birth</td>";
             echo "<td>$i_ni</td>";
             echo "<td>$i_email</td>";
-            echo "<td>$i_pwd</td>";
+            echo "<td class='mono'>$i_pwd</td>";
             echo "<td>$i_phoneNumber</td>";
             echo "</tr>";
           }
           echo "</tbody>";
           echo "</table>";
+          echo "</div></section>";
         }
       }
       ?>
 
-    </div>
+    </main>
+    <footer class="foot">UWE Cyber HR Portal: a deliberately vulnerable training system for the SCN SQL injection lab.</footer>
     <script type="text/javascript">
     function logout(){
       location.href = "logoff.php";
